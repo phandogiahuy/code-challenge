@@ -39,10 +39,10 @@ const FormComponent = () => {
     }, 1000);
   };
   return (
-    <div className="mt-20 bg-gradient-to-r from-slate-900 to-slate-700 h-[300px] flex justify-center items-center rounded-xl w-2/6 shadow-[-19px_3px_41px_23px_#903396BF]">
+    <div className="mt-20 bg-gradient-to-r from-slate-900 to-slate-700 h-[300px] flex justify-center items-center rounded-xl w-2/6  shadow-[-19px_3px_41px_23px_#903396BF]">
       <Form
         layout="horizontal"
-        style={{ width: 500 }}
+        style={{ maxWidth:"600px",minWidth:"300px" }}
         size="large"
         onFinish={submitSwap}
       >
@@ -56,7 +56,7 @@ const FormComponent = () => {
                 color: "antiquewhite",
               }}
             >
-              Amount to send
+              Amount to send 
             </p>
           }
           colon={false}
@@ -68,10 +68,10 @@ const FormComponent = () => {
             },
           ]}
         >
-          <Space>
+          <Space >
             <Input
               placeholder="Amount to send"
-              style={{ marginLeft: "17px", width: "206px" }}
+              style={{ marginLeft:"7px"}}
               type="number"
               min={0}
               value={amountUnit.value}
@@ -100,7 +100,7 @@ const FormComponent = () => {
                   </Space>
                 ),
               }))}
-              style={{ width: "130px" }}
+              style={{ width: "130px",marginLeft:"7px" }}
               onChange={(e) =>
                 setAmountUnit((state) => ({ ...state, unit: e }))
               }
@@ -122,7 +122,7 @@ const FormComponent = () => {
           }
           colon={false}
         >
-          <Space>
+          <Space >
             <Input
               placeholder="Amount to received"
               value={convertAmountSendToReceived}
@@ -144,7 +144,7 @@ const FormComponent = () => {
                   </Space>
                 ),
               }))}
-              style={{ width: "130px" }}
+              style={{ width: "130px",marginLeft:"2px" }}
               placeholder="Select token"
               value={unitReceive}
               onChange={(e) => setUnitReceive(e)}
