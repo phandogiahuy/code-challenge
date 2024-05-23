@@ -2,6 +2,7 @@ import { SwapOutlined } from "@ant-design/icons";
 import { Button, Form, Input, message, Select, Space } from "antd";
 import { dataCurrency } from "../data/currency.ts";
 import { useState } from "react";
+import { convertAmoundSendtoAmountReceived } from "../utils/convertAmount.ts";
 const FormComponent = () => {
   const [amountUnit, setAmountUnit] = useState<{ value: string; unit: string }>(
     {
@@ -12,24 +13,13 @@ const FormComponent = () => {
   const [unitReceive, setUnitReceive] = useState<string>("");
   const [isSend, setSend] = useState(false);
   const [swaped, setSwaped] = useState(false);
-  let convertAmountSendToUsd: number = 0;
-  let convertAmountSendToReceived: number = 0;
 
-  // Converted the amount to send to USD
-  for (let i = 0; i < dataCurrency.length; i++) {
-    if (dataCurrency[i].currency === amountUnit.unit) {
-      convertAmountSendToUsd = Number(amountUnit.value) * dataCurrency[i].price;
-    }
-  }
-
-  // Converted the number of usd to the amount of received token
-  for (let i = 0; i < dataCurrency.length; i++) {
-    if (dataCurrency[i].currency === unitReceive) {
-      convertAmountSendToReceived =
-        convertAmountSendToUsd / dataCurrency[i].price;
-    }
-  }
-
+  
+  // Converted the amount to send to amount to received
+  const convertAmountSendToReceived = convertAmoundSendtoAmountReceived(
+    amountUnit,
+    unitReceive
+  );
   const submitSwap = () => {
     setSend(true);
     setTimeout(() => {
@@ -125,10 +115,7 @@ const FormComponent = () => {
           <Space>
             <Input
               placeholder="Amount to received"
-              value={
-              unitReceive &&
-                convertAmountSendToReceived
-              }
+              value={unitReceive && convertAmountSendToReceived}
             />
             <Select
               options={dataCurrency.map((currency) => ({
